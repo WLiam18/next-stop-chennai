@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#183c35">
+  <meta name="description" content="Follow your Chennai MTC bus and get a chime before your stop.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./mark.svg?v=3" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css?v=3">
+  <title>Next Stop Chennai</title>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="./" aria-label="Next Stop Chennai home">
+        <img src="./mark.svg?v=3" class="brand-icon" width="36" height="36" alt="">
+        <span class="brand-name">Next Stop<span class="brand-dot">.</span></span>
+        <span class="brand-city"><span lang="ta">சென்னை</span>Chennai</span>
+      </a>
+      <button id="saved-open" class="button nav-button" type="button"><span data-icon="bookmark"></span> Saved rides</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="next-panel" class="ticket" aria-labelledby="next-name">
+      <div class="ticket-board">
+        <div class="ticket-status">
+          <span class="ticket-route"><span data-icon="bus"></span><span id="ticket-code">MTC</span></span>
+          <span id="mode">Preview</span>
+        </div>
+        <div class="ticket-stop">
+          <p id="next-label">Bound for</p>
+          <h1 id="next-name" aria-live="polite" aria-atomic="true">Your bus</h1>
+          <p class="ticket-detail"><span id="ticket-origin"></span><span id="next-distance"></span></p>
+        </div>
+        <div class="ticket-bottom">
+          <button id="demo" class="demo-button" type="button" disabled><span data-icon="play"></span><span id="demo-label">Try a demo ride</span></button>
+          <span id="ticket-progress" hidden></span>
+        </div>
+      </div>
+      <div class="ticket-art">
+        <div class="madras-scene" aria-hidden="true">
+  <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" focusable="false">
+    <defs>
+      <pattern id="madras-screen" patternUnits="userSpaceOnUse" width="4" height="4"><circle cx="1" cy="1" r=".65" fill="#875e42" opacity=".48"/></pattern>
+      <pattern id="madras-glass" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(33)"><path d="M0 0v8" stroke="#fbead2" opacity=".12" stroke-width="2"/></pattern>
+      <pattern id="madras-led" patternUnits="userSpaceOnUse" width="3.4" height="3.4"><circle cx="1.2" cy="1.1" r=".48" fill="#eabb72" opacity=".42"/></pattern>
+      <g id="madras-palm" fill="currentColor">
+        <path d="M-2 0q5-28 4-53l3-1Q7-24 4 0z"/>
+        <path d="M4-52q-12-11-25-2 10-1 17 4-16-2-20 9 12-7 24-7-12 3-15 15 7-10 18-14-5 6-4 17 4-12 8-17 11 4 14 14 1-11-7-17 12 3 20 8-5-12-20-14 8-3 17 0-9-9-20-4 0-10-7-13 5 7 0 11z"/>
+      </g>
+      <g id="madras-tyre" stroke-linecap="round">
+        <ellipse rx="23.5" ry="27" fill="#252e2a" stroke="#192522" stroke-width="2"/>
+        <ellipse rx="19" ry="23" fill="#273430" stroke="#51615a" stroke-width="1"/>
+        <ellipse rx="12.2" ry="16.1" fill="#a3a294" stroke="#172825" stroke-width="1.6"/>
+        <g class="madras-hub">
+          <ellipse rx="8.1" ry="10.9" fill="#57635b"/>
+          <g fill="#bbbaaa"><circle cx="0" cy="-8" r="1.6"/><circle cx="6" cy="-3" r="1.5"/><circle cx="4" cy="6" r="1.5"/><circle cx="-4" cy="6" r="1.5"/><circle cx="-6" cy="-3" r="1.5"/></g>
+          <ellipse rx="3.3" ry="4.8" fill="#cfc8b5"/>
+        </g>
+      </g>
+      <clipPath id="madras-window-band"><path d="M136 135l338-14 1 43-340 21z"/></clipPath>
+      <clipPath id="madras-windshield"><path d="M530 120q33-3 55 0 11 2 14 17l7 36q1 4-4 5l-71-2z"/></clipPath>
+    </defs>
+
+    <!-- A coastal silhouette and the striped Chennai lighthouse. -->
+    <path fill="#f8edcf" d="M0 0h760v330H0z"/>
+    <path d="M0 190q111-10 215 1t203-6 174-7 168 7v83H0z" fill="#e2d8b9"/>
+    <g fill="none" stroke="#c69b69" stroke-width="1.05" opacity=".38">
+      <path d="M403 146a125 125 0 0 1 250 0m-263 0a138 138 0 0 1 276 0m-289 0a151 151 0 0 1 302 0"/>
+    </g>
+    <circle cx="528" cy="140" r="108" fill="#efbe77"/>
+    <path d="M424 170q96 9 206-7l-5 15-192 9zM438 195l178-11-8 11-161 12z" fill="#f8edcf" opacity=".8"/>
+    <circle cx="528" cy="140" r="108" fill="url(#madras-screen)" opacity=".22"/>
+    <g fill="#aeaf91">
+      <path d="M0 175h24v-16h16v12h28v-30h20v33h17v-13h15v22h22v-9h29v20h34v-31h16v29h21v-20h16v13h22v-34h38v30h16v-21h21v33h16v-13h26v24H0z"/>
+      <path d="M371 187h36v-22h23v27h20v-37h24v30h14v-22h23v24h16v-16h26v20h20v-29h28v21h17v-8h23v9h20v-20h24v22h27v-19h22v22h14v-11h32v39H371z" opacity=".85"/>
+    </g>
+    <g transform="translate(43 63)">
+      <path d="M-8 122 1 21h12l8 101z" fill="#ece2c3" stroke="#9f8d6d" stroke-width="1"/>
+      <path d="m-6 99 1-14h22l1 14zm3-38 2-14h15l2 14zM0 32l1-12h12l1 12z" fill="#bb7553"/>
+      <path d="M-1 19h16l-2-5H1z" fill="#737b65"/>
+      <path d="M0 15v-6h13v6" fill="#bac1a8" stroke="#777e65" stroke-width="1.3"/>
+      <path d="M-2 9 6 3l9 6zM6 3V0" fill="#777e65" stroke="#777e65"/>
+      <path d="M-3 20h20m-21 2h22" stroke="#777e65" stroke-width="1.2"/>
+    </g>
+    <g style="color:#929d81">
+      <use href="#madras-palm" transform="translate(76 191) scale(.77)"/>
+      <use href="#madras-palm" transform="translate(101 194) scale(.6)"/>
+      <use href="#madras-palm" transform="translate(617 194) scale(.89)"/>
+      <use href="#madras-palm" transform="translate(650 190) scale(.67)"/>
+      <use href="#madras-palm" transform="translate(714 191) scale(1.13)"/>
+      <use href="#madras-palm" transform="translate(746 192) scale(.72)"/>
+    </g>
+    <g class="madras-gulls" fill="none" stroke="#968263" stroke-width="1.8" stroke-linecap="round">
+      <path d="M120 79q5-2 8 2 3-6 9-6m18-12q4-1 6 2 3-4 6-5m433 5q4 0 6 3 4-5 9-4"/>
+    </g>
+    <path d="M0 198q163 1 283-6t263-1 214-1v20H0z" fill="#b8b99d"/>
+    <path d="M0 208 760 195v17L0 232z" fill="#d6c9a6"/>
+    <g fill="none" stroke="#888e77" stroke-width="1.8">
+      <path d="m0 207 760-9"/>
+      <path d="M12 199v15m25-15v15m25-15v14m26-15v14m25-15v15m527-19v12m25-12v12m25-13v12m25-12v12m25-12v12"/>
+    </g>
+    <path d="M0 228 760 207v123H0z" fill="#d9c29c"/>
+    <path d="M0 235 760 213" stroke="#f8edcf" stroke-width="3"/>
+    <path d="M0 242 760 219" stroke="#b9a484" stroke-width="1.2"/>
+    <path d="M0 228 760 207v123H0z" fill="url(#madras-screen)" opacity=".16"/>
+    <g class="madras-road" stroke="#f9edcf" stroke-width="3.5" stroke-dasharray="53 43"><path d="m-192 299 1150-40"/></g>
+    <path d="m0 325 760-39" stroke="#ba9d77" stroke-width="1.1"/>
+
+    <!-- An original three-quarter MTC-inspired bus. -->
+    <g class="madras-bus">
+      <path d="M109 254q101 13 252 6l249-15q39-3 27-8-93-7-258 1L125 248q-29 3-16 6z" fill="#574b38" opacity=".24"/>
+      <g stroke-linejoin="round" stroke-linecap="round">
+        <path d="M123 216l424-30 60 13-5 31-445 28-40-12z" fill="#26352e" stroke="#293b31" stroke-width="2"/>
+        <use href="#madras-tyre" transform="translate(182 237) rotate(-3)"/>
+        <use href="#madras-tyre" transform="translate(484 217) rotate(-3)"/>
+        <g class="madras-coach">
+          <!-- Cream roof, painted side and rounded front cowl. -->
+          <path d="M114 144q0-24 13-28l343-16q50-6 95-2 26 1 32 12l12 62 1 32-3 16-81 8-15-1q-3-33-26-34-24 2-27 38l-249 18q-1-34-27-34-23 2-27 37l-30 1q-14-2-14-10z" fill="#bb5135" stroke="#433b2e" stroke-width="2.6"/>
+          <path d="M117 145q0-22 13-24l343-17 52 2 1 66-408 24z" fill="#e7cf99"/>
+          <path d="M118 143q0-15 8-19l372-17 21 3-1 55-402 25z" fill="#344c47"/>
+          <path d="m125 121 343-17 50 1" fill="none" stroke="#fcedc3" stroke-width="3"/>
+          <path d="m119 190 405-24 4 11-410 25z" fill="#f1d9a3"/>
+          <path d="m116 201 409-25 2 3-411 27z" fill="#a5412e"/>
+          <path d="m117 205 408-25" stroke="#e7ae70" stroke-width="2"/>
+          <path d="m122 238 28-1m63-8 240-17" stroke="#913e2c" stroke-width="2"/>
+          <path d="m126 242 24-1m65-6 237-17" stroke="#d18350" stroke-width="1.6"/>
+          <path d="m126 249 26-2m61-6 242-17" stroke="#563e30" stroke-width="2.2"/>
+          <path d="M113 193l6-1-2 52-7-1z" fill="#8b4931"/>
+          <path d="M119 238h7v7l-8 1" fill="#f3bc60" stroke="#68462f" stroke-width="1"/>
+          <!-- Side windows. -->
+          <g clip-path="url(#madras-window-band)">
+            <path d="M131 133l349-17v52l-348 23z" fill="#385653"/>
+            <path d="M130 148q56 8 109-7 44-13 97-5t152-11v55H126z" fill="#6c8780" opacity=".67"/>
+            <path d="m149 133 19-1-27 54-12 1zm56-3 9-1-24 53-11 1zm76-6 18-1-29 55-17 1zm67-1 6-1-23 54-7 1zm89-6 12-1-26 55-14 1z" fill="#a6b5a4" opacity=".47"/>
+            <path d="M128 132h354v58H128z" fill="url(#madras-glass)"/>
+            <g fill="#203935" opacity=".78">
+              <path d="M153 181v-10q0-7 6-8 7 0 8 8v10zm69-4v-13q0-5 5-6 6 0 8 6v12zm96-6v-11q0-5 6-6 5 0 7 6v12zm79-3v-12q0-4 5-5 6 0 7 6v10z"/>
+              <circle cx="158" cy="159" r="5"/><circle cx="227" cy="154" r="5"/><circle cx="323" cy="151" r="5"/><circle cx="402" cy="147" r="5"/>
+            </g>
+            <path d="m129 156 353-17" stroke="#2e413b" stroke-width="1.8"/>
+          </g>
+          <g fill="#dac69c" stroke="#3d4a3f" stroke-width="1">
+            <path d="m134 133 4-.2-1 51-5 .5zm37-2 5-.3v51l-5 .5zm41-2 5-.3v50.5l-5 .4zm43-2 5-.3v50l-5 .5zm44-2 5-.3v49.8l-5 .4zm45-2 5-.3v49l-5 .5zm45-2 5-.3v48.5l-5 .4zm42-2 5-.3v48l-5 .4zm40-2 5-.3v47l-5 .5z"/>
+          </g>
+          <path d="m138 135 338-15m-341 65 339-21" stroke="#d2ba8b" stroke-width="1.4"/>
+          <!-- Front entry with split folding doors. -->
+          <path d="m481 120 35-2 2 77-33 4z" fill="#2a403b" stroke="#6e5139" stroke-width="2"/>
+          <path d="m484 124 12-.6 1 44-12 1zm17-.8 12-.5 1 44-12 1z" fill="#6f8880"/>
+          <path d="m485 171 12-1 1 21-12 1zm17-1.4 12-1 .5 21-12 1z" fill="#40564c"/>
+          <path d="m498 124 1.6 69" stroke="#c8ae82" stroke-width="1.6"/>
+          <path d="m485 194 31-3" stroke="#d5b983" stroke-width="2"/>
+          <!-- Front face. -->
+          <path d="M522 111q46-5 66 1 7 2 10 14l10 46q3 12 2 30l-1 17q-2 6-9 7l-71 6q-5-1-6-9z" fill="#be5438" stroke="#4d4132" stroke-width="2"/>
+          <path d="M526 113q39-5 62 0 6 2 8 11l10 47 1 8-78 2z" fill="#e3c891"/>
+          <path d="M530 120q33-3 55 0 11 2 14 17l7 36q1 4-4 5l-71-2z" fill="#335451" stroke="#39463c" stroke-width="2"/>
+          <g clip-path="url(#madras-windshield)">
+            <path d="m528 154q33 4 71-13l10 39-80 2z" fill="#738b80"/>
+            <path d="m552 115 12-1-28 67h-10zm24-1 6 .5-28 66-7 1z" fill="#97a99b" opacity=".66"/>
+            <path d="M530 115h81v67h-81z" fill="url(#madras-glass)"/>
+            <path d="m592 170-14-16m0 0-8-3m-16 22-9-11m0 0-10-3" stroke="#293e38" stroke-width="2"/>
+          </g>
+          <path d="m531 182 75-2 1 8-76 4z" fill="#ecd4a1"/>
+          <path d="m531 194 77-6v3l-77 6z" fill="#d58b56"/>
+          <path d="m550 200 36-2 1 10-36 3z" fill="#4d4d3e" stroke="#9c5138" stroke-width="1.2"/>
+          <path d="m554 202 28-1.8m-28 4.8 28-2" stroke="#c19c6f" stroke-width="1"/>
+          <path d="m530 200 15-1 1 9-15 1zm60-3 14-1 1 9-14 1z" fill="#e7d6a9" stroke="#6b5b41" stroke-width="1.4"/>
+          <path d="m531 213 13-1m52-3 10-1" stroke="#f5a848" stroke-width="2.5"/>
+          <path d="m528 221 81-6-.4 7-79 7z" fill="#36463d" stroke="#544d3c" stroke-width="1"/>
+          <path d="m558 214 22-2 .4 7-22 2z" fill="#e8b75d" stroke="#776044" stroke-width=".8"/>
+          <path d="m562 216 13-1" stroke="#6e573a" stroke-width="1"/>
+          <path d="m597 130 16-1 3 10" fill="none" stroke="#35463c" stroke-width="2.6"/>
+          <rect x="611" y="138" width="8" height="16" rx="2.7" fill="#34443c" transform="rotate(-7 615 146)"/>
+          <!-- Destination board and exterior lettering. -->
+          <path d="M522 102q35-4 64 0l4 12q-36-2-66 2z" fill="#2b3b32" stroke="#6a6146" stroke-width="1.4"/>
+          <path d="M524 103q34-3 60 0l3 9q-34-1-61 2z" fill="url(#madras-led)"/>
+          <text id="scene-route-number" x="555" y="112" text-anchor="middle" font-size="8.5" font-family="ui-monospace,monospace" letter-spacing="1.1" font-weight="700" fill="#f9ce79">MTC</text>
+          <g transform="matrix(1 -.064 .02 1 261 208)" fill="#f4dfb2">
+            <text x="0" y="0" font-size="9" font-family="system-ui,sans-serif" font-weight="650">மாநகரப் பேருந்து</text>
+            <text x="0" y="8.7" font-size="5.2" letter-spacing=".9" font-family="system-ui,sans-serif" font-weight="700">CHENNAI CITY BUS</text>
+          </g>
+          <path d="M153 251q1-34 27-36 26-1 29 33m247-18q2-36 27-37 26-2 29 32" fill="none" stroke="#d18a58" stroke-width="2.6"/>
+          <g fill="#f5c976"><circle cx="132" cy="214" r="1.9"/><circle cx="448" cy="192" r="1.7"/></g>
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+
+      </div>
+      <div class="ride-meter" aria-hidden="true"><i></i></div>
+    </section>
+    <div class="layout">
+      <section class="setup" aria-labelledby="ride-title">
+        <div class="setup-head"><h2 id="ride-title">Your ride</h2>
+          <button id="favorite" class="button icon-button favorite" type="button" aria-label="Save ride" title="Save ride" disabled><span data-icon="bookmark"></span></button>
+        </div>
+        <div class="fields">
+          <div class="field">
+            <span class="field-label" id="route-field-label">Bus route</span>
+            <button id="change-route" class="field-button" type="button" aria-labelledby="route-field-label route-number route-title route-origin" disabled>
+              <span id="route-number" class="route-badge">—</span>
+              <span class="field-text"><strong id="route-title">Loading routes…</strong><span id="route-origin"></span></span>
+              <span class="field-chevron" data-icon="chevron"></span>
+            </button>
+          </div>
+          <div class="field">
+            <span class="field-label" id="alert-field-label">Get off at</span>
+            <button id="destination-open" class="field-button" type="button" aria-labelledby="alert-field-label destination-label" disabled>
+              <span class="field-icon" data-icon="bell"></span>
+              <span class="field-text"><strong id="destination-label">Choose a stop</strong></span>
+              <span class="field-chevron" data-icon="chevron"></span>
+            </button>
+            <p id="alert-detail" class="alert-detail" hidden></p>
+          </div>
+        </div>
+
+        <div class="ride-actions">
+          <button id="track" class="button primary" type="button" disabled><span data-icon="locate"></span><span id="track-label">Start tracking</span></button>
+        </div>
+        <p id="gps-status" class="hint"><span data-icon="info"></span><span id="gps-copy" role="status">Keep this screen open and awake for stop alerts.</span></p>
+      </section>
+
+      <section class="overview" aria-labelledby="stops-title">
+        <div class="overview-head">
+          <div class="overview-title">
+            <h2 id="stops-title">Along the route</h2>
+            <p><span id="stop-count">—</span></p>
+          </div>
+          <div class="view-switch" role="group" aria-label="Route view">
+            <button id="map-view" type="button" aria-pressed="true" aria-controls="map-panel">Map</button>
+            <button id="stops-view" type="button" aria-pressed="false" aria-controls="stops-panel">Stops</button>
+          </div>
+        </div>
+
+        <div id="map-panel" class="map-panel">
+          <canvas id="route-map" role="img" aria-label="Map of the selected bus route"></canvas>
+          <div class="map-tools" aria-label="Map controls">
+            <button id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in" data-icon="plus" disabled></button>
+            <button id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out" data-icon="minus" disabled></button>
+            <button id="fit-route" type="button" aria-label="Fit full route" title="Fit full route" data-icon="expand" disabled></button>
+          </div>
+          <a class="map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a>
+        </div>
+
+        <div id="stops-panel" class="stops-panel" hidden>
+          <p id="stops-subtitle" class="stops-summary">Stops in travel order</p>
+          <ol id="timeline" class="timeline" aria-label="Bus stops"></ol>
+          <button id="show-stops" class="button all-stops" type="button" hidden><span id="show-label">Show all stops</span><span data-icon="down"></span></button>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <p>Your location stays on this device.</p>
+      <div>
+        <button id="install-open" class="text-button" type="button">Add to Home Screen</button>
+        <a id="data-source" href="https://github.com/reclaimchennai/India_GTFS" target="_blank" rel="noopener">Route data <span data-icon="external"></span></a>
+      </div>
+    </footer>
+  </main>
+
+  <dialog id="panel" aria-labelledby="dialog-title" aria-describedby="dialog-copy">
+    <div class="dialog-head"><div><h2 id="dialog-title"></h2><p id="dialog-copy"></p></div><button class="button icon-button close-button" id="close-panel" type="button" aria-label="Close"><span data-icon="close"></span></button></div>
+    <div id="panel-content"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <section id="arrival" class="arrival" role="alert" hidden><span class="arrival-icon" data-icon="bell"></span><div><strong id="arrival-title"></strong><p id="arrival-text"></p></div><button class="button icon-button close-button" id="dismiss-arrival" type="button" aria-label="Dismiss alert"><span data-icon="close"></span></button></section>
+  <script type="module" src="./app.mjs?v=3"></script>
+</body>
+</html>
